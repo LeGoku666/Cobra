@@ -19,7 +19,7 @@ namespace Cobra
 
         public Game()
         {
-            string mapPath = "map.bmp";  // Ścieżka do pliku mapy
+            string mapPath = "maps/map.bmp";  // Ścieżka do pliku mapy
             Board = new Board(mapPath);
             Player = new Player(PlayerStartX, PlayerStartY);
         }
