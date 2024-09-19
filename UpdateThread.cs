@@ -1,6 +1,4 @@
-﻿using System.Threading;
-
-namespace Cobra
+﻿namespace Cobra
 {
     public class UpdateThread
     {
@@ -15,8 +13,8 @@ namespace Cobra
         {
             while (game.Running)
             {
-                // W tej implementacji plansza jest aktualizowana w czasie rzeczywistym przez metodę Move w klasie Player,
-                // więc nie musimy jej tutaj dodatkowo aktualizować.
+                // In this implementation, the board is updated in real-time by the Move method in the Player class,
+                // so we do not need to update it here additionally.
                 Thread.Sleep(50);
             }
         }

@@ -1,7 +1,4 @@
-﻿using System;
-using System.Threading;
-
-namespace Cobra
+﻿namespace Cobra
 {
     public class DisplayThread
     {
@@ -18,27 +15,27 @@ namespace Cobra
         {
             while (game.Running)
             {
-                // Linia 0: Komunikat o zakończeniu gry
+                // Line 0: Game termination message
                 Console.SetCursorPosition(0, 0);
-                Console.WriteLine("Naciśnij ESC, aby zakończyć grę.");
+                Console.WriteLine("Press ESC to end the game.");
 
-                // Linia 1: Informacja o naciśniętym klawiszu
+                // Line 1: Information about the pressed key
                 Console.SetCursorPosition(0, 1);
                 if (!string.IsNullOrEmpty(game.KeyPressed))
-                    Console.WriteLine("Naciśnięto klawisz: " + game.KeyPressed + "     ");
+                    Console.WriteLine("Key pressed: " + game.KeyPressed + "     ");
                 else
-                    Console.WriteLine("Naciśnięto klawisz:          ");
+                    Console.WriteLine("Key pressed:          ");
 
-                // Linia 2: Pusta linia
+                // Line 2: Empty line
                 Console.SetCursorPosition(0, 2);
                 Console.WriteLine();
 
-                // Linia 3: Informacja o tym, na jakim kafelku stoi gracz
+                // Line 3: Information about the tile the player is standing on
                 Console.SetCursorPosition(0, 3);
                 Tile currentTile = game.Board.GetTile(game.Player.X, game.Player.Y);
-                Console.WriteLine("Stoisz na: " + currentTile.Name + "       ");
+                Console.WriteLine("You are standing on: " + currentTile.Name + "       ");
 
-                // Linia 4: Informacja o tym, co jest przed graczem
+                // Line 4: Information about what is in front of the player
                 Console.SetCursorPosition(0, 4);
                 int frontX = game.Player.X;
                 int frontY = game.Player.Y;
@@ -63,18 +60,18 @@ namespace Cobra
 
                 if (frontTile != null)
                 {
-                    Console.WriteLine("Przed tobą: " + frontTile.Name + "       ");
+                    Console.WriteLine("In front of you: " + frontTile.Name + "       ");
                 }
                 else
                 {
-                    Console.WriteLine("Przed tobą: poza mapą       ");
+                    Console.WriteLine("In front of you: out of bounds       ");
                 }
 
-                // Linia 5: Informacja o kierunku patrzenia gracza
+                // Line 5: Information about the direction the player is facing
                 Console.SetCursorPosition(0, 5);
-                Console.WriteLine("Kierunek patrzenia: " + game.Player.FacingDirection.ToString() + "     ");
+                Console.WriteLine("Facing direction: " + game.Player.FacingDirection.ToString() + "     ");
 
-                // Linia 6: Pusta linia
+                // Line 6: Empty line
                 Console.SetCursorPosition(0, 6);
                 Console.WriteLine();
 
@@ -86,9 +83,9 @@ namespace Cobra
                     for (int x = 0; x < game.Board.Width; x++)
                     {
                         if (game.Player.X == x && game.Player.Y == y)
-                            Console.Write(game.Player.Symbol + " "); // Dodajemy spację
+                            Console.Write(game.Player.Symbol + " "); // Add a space
                         else
-                            Console.Write(game.Board.Grid[y, x].Symbol + " "); // Dodajemy spację
+                            Console.Write(game.Board.Grid[y, x].Symbol + " "); // Add a space
                     }
                     Console.WriteLine();
                 }
@@ -96,9 +93,9 @@ namespace Cobra
                 Thread.Sleep(delay);
             }
 
-            // Wyświetlenie komunikatu o zakończeniu gry poniżej mapy
+            // Display the game over message below the map
             Console.SetCursorPosition(0, 7 + game.Board.Height + 1);
-            Console.WriteLine("Gra zakończona.");
+            Console.WriteLine("Game Over.");
         }
 
     }

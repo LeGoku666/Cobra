@@ -1,6 +1,4 @@
-﻿using System.Threading;
-
-namespace Cobra
+﻿namespace Cobra
 {
     public class Game
     {
@@ -19,7 +17,7 @@ namespace Cobra
 
         public Game()
         {
-            string mapPath = "maps/map.bmp";  // Ścieżka do pliku mapy
+            string mapPath = "maps/map.bmp";  // Path to the map file
             Board = new Board(mapPath);
             Player = new Player(PlayerStartX, PlayerStartY);
         }

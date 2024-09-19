@@ -1,21 +1,19 @@
-﻿using System;
-
-namespace Cobra
+﻿namespace Cobra
 {
     class Program
     {
         static void Main(string[] args)
         {
-            // Ustawienie kodowania konsoli na UTF-8
+            // Set console encoding to UTF-8
             Console.OutputEncoding = System.Text.Encoding.UTF8;
 
-            // Wyłączenie widoczności kursora
+            // Hide cursor visibility
             Console.CursorVisible = false;
 
             Game game = new Game();
             game.Start();
 
-            // Ponowne włączenie widoczności kursora po zakończeniu programu
+            // Re-enable cursor visibility after the program ends
             Console.CursorVisible = true;
         }
     }

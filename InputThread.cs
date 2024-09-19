@@ -1,7 +1,4 @@
-﻿using System;
-using System.Threading;
-
-namespace Cobra
+﻿namespace Cobra
 {
     public class InputThread
     {
@@ -23,7 +20,6 @@ namespace Cobra
                     game.KeyPressed = key.KeyChar.ToString();
 
                     Direction newDirection = game.Player.FacingDirection;
-                    bool directionChanged = false;
 
                     switch (key.Key)
                     {

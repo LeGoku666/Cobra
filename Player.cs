@@ -10,8 +10,8 @@
 
     public class Player
     {
-        public int X { get; set; }  // Pozycja na osi X (kolumna)
-        public int Y { get; set; }  // Pozycja na osi Y (wiersz)
+        public int X { get; set; }  // Position on the X axis (column)
+        public int Y { get; set; }  // Position on the Y axis (row)
         public Direction FacingDirection { get; set; }
         public char Symbol { get; set; }
 
@@ -19,15 +19,15 @@
         {
             X = x;
             Y = y;
-            FacingDirection = Direction.Up;  // Domyślny kierunek
-            Symbol = '^';  // Domyślny symbol (patrząc w górę)
+            FacingDirection = Direction.Up;  // Default direction
+            Symbol = '^';  // Default symbol (facing up)
         }
 
         public void Turn(Direction newDirection)
         {
             FacingDirection = newDirection;
 
-            // Aktualizacja symbolu w zależności od kierunku
+            // Update symbol based on direction
             switch (FacingDirection)
             {
                 case Direction.Up:
@@ -69,13 +69,13 @@
             int newX = X + deltaX;
             int newY = Y + deltaY;
 
-            // Sprawdzenie, czy nowa pozycja jest w granicach planszy
+            // Check if the new position is within the bounds of the board
             if (newX < 0 || newX >= board.Width || newY < 0 || newY >= board.Height)
                 return false;
 
             Tile tile = board.GetTile(newX, newY);
 
-            // Sprawdzenie, czy można wejść na dany kafelek
+            // Check if the tile can be entered
             if (tile != null && tile.IsPassable)
             {
                 X = newX;

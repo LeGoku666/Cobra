@@ -5,7 +5,7 @@
         public string Name { get; set; }
         public char Symbol { get; set; }
         public bool IsPassable { get; set; }
-        // Miejsce na dodatkowe efekty
+        // Placeholder for additional effects
         // public Action<Player> OnEnter { get; set; }
 
         public Tile(string name, char symbol, bool isPassable)
