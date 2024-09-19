@@ -13,12 +13,21 @@ namespace Cobra
         private Dictionary<Rgba32, Tile> colorTileMapping;
         private Tile defaultTile;
 
+        // List to store NPC positions detected during map loading
+        public List<(int X, int Y)> NPCPositions { get; private set; }
+
+        Rgba32 yellow = new Rgba32();
+
         public Board(string imagePath)
         {
             if (!File.Exists(imagePath))
                 throw new FileNotFoundException("Map file not found.", imagePath);
 
             InitializeColorTileMapping();
+
+            // Initialize NPCPositions before loading the map
+            NPCPositions = new List<(int X, int Y)>();
+
             LoadMapFromImage(imagePath);
         }
 
@@ -31,6 +40,7 @@ namespace Cobra
             var green = new Rgba32(0, 255, 0);
             var white = new Rgba32(255, 255, 255);
             var gray = new Rgba32(128, 128, 128);
+            yellow = new Rgba32(255, 255, 0); // Color representing NPC position
 
             // Create tiles with assigned console colors
             defaultTile = new Tile("Floor", '°', true, ConsoleColor.DarkYellow); // Brown
@@ -44,6 +54,7 @@ namespace Cobra
             colorTileMapping[white] = startTile;
             colorTileMapping[gray] = wallTile;
 
+            // Note: Do not map the yellow color to a tile; it's used for NPC positions
             // Add more mappings here if needed
         }
 
@@ -86,6 +97,13 @@ namespace Cobra
                                     Grid[y, x] = tile;
                                 }
                             }
+                            else if (AreColorsEqual(pixel, yellow)) // Compare using a method
+                            {
+                                // Store NPC position for later initialization
+                                NPCPositions.Add((x, y));
+                                // Set the underlying tile as default
+                                Grid[y, x] = defaultTile;
+                            }
                             else
                             {
                                 // Use the default tile
@@ -100,6 +118,12 @@ namespace Cobra
                     throw new Exception("The map does not contain a white pixel representing the player's starting position.");
                 }
             }
+        }
+
+        // Helper method to compare colors
+        private bool AreColorsEqual(Rgba32 color1, Rgba32 color2)
+        {
+            return color1.R == color2.R && color1.G == color2.G && color1.B == color2.B;
         }
 
         public Tile GetTile(int x, int y)

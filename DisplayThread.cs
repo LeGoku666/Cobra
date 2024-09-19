@@ -1,4 +1,6 @@
-﻿namespace Cobra
+﻿using System.Linq;
+
+namespace Cobra
 {
     public class DisplayThread
     {
@@ -84,14 +86,24 @@
                     {
                         if (game.Player.X == x && game.Player.Y == y)
                         {
-                            Console.ForegroundColor = game.Player.Color;  // Use player's color
+                            Console.ForegroundColor = game.Player.Color;
                             Console.Write(game.Player.Symbol + " ");
                         }
                         else
                         {
-                            Tile tile = game.Board.Grid[y, x];
-                            Console.ForegroundColor = tile.Color;  // Set tile color
-                            Console.Write(tile.Symbol + " ");
+                            // Check if there is an NPC at this position
+                            var npc = game.NPCs.FirstOrDefault(n => n.X == x && n.Y == y);
+                            if (npc != null)
+                            {
+                                Console.ForegroundColor = npc.Color;
+                                Console.Write(npc.Symbol + " ");
+                            }
+                            else
+                            {
+                                Tile tile = game.Board.Grid[y, x];
+                                Console.ForegroundColor = tile.Color;
+                                Console.Write(tile.Symbol + " ");
+                            }
                         }
                     }
                     Console.WriteLine();
@@ -99,6 +111,18 @@
 
                 // Reset console color after drawing the map
                 Console.ResetColor();
+
+                // Line below the map to display NPC dialogue
+                Console.SetCursorPosition(0, 7 + game.Board.Height);
+                if (!string.IsNullOrEmpty(game.NPCDialogue))
+                {
+                    Console.WriteLine(game.NPCDialogue.PadRight(Console.WindowWidth));
+                }
+                else
+                {
+                    // Clear the line if there is no dialogue
+                    Console.WriteLine(new string(' ', Console.WindowWidth));
+                }
 
                 Thread.Sleep(delay);
             }

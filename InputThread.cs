@@ -11,11 +11,19 @@
 
         public void Run()
         {
+            bool interactionHandled = false;
+
             while (game.Running)
             {
                 if (Console.KeyAvailable)
                 {
                     var key = Console.ReadKey(intercept: true);
+
+                    if (!interactionHandled)
+                    {
+                        game.NPCDialogue = "";
+                    }
+                    interactionHandled = false;
 
                     game.KeyPressed = key.KeyChar.ToString();
 
@@ -35,6 +43,9 @@
                         case ConsoleKey.D:
                             newDirection = Direction.Right;
                             break;
+                        case ConsoleKey.F:
+                            HandleInteraction();
+                            break;
                         case ConsoleKey.Escape:
                             game.Running = false;
                             break;
@@ -45,14 +56,52 @@
                         if (game.Player.FacingDirection != newDirection)
                         {
                             game.Player.Turn(newDirection);
+                            // Clear NPC dialogue when turning
+                            game.NPCDialogue = "";
                         }
                         else
                         {
                             game.Player.Move(game.Board);
+                            // Clear NPC dialogue when moving
+                            game.NPCDialogue = "";
                         }
                     }
                 }
                 Thread.Sleep(50);
+            }
+        }
+
+        private void HandleInteraction()
+        {
+            int frontX = game.Player.X;
+            int frontY = game.Player.Y;
+
+            switch (game.Player.FacingDirection)
+            {
+                case Direction.Up:
+                    frontY -= 1;
+                    break;
+                case Direction.Down:
+                    frontY += 1;
+                    break;
+                case Direction.Left:
+                    frontX -= 1;
+                    break;
+                case Direction.Right:
+                    frontX += 1;
+                    break;
+            }
+
+            var npc = game.NPCs.FirstOrDefault(n => n.X == frontX && n.Y == frontY);
+            if (npc != null)
+            {
+                // Display NPC dialogue
+                game.NPCDialogue = npc.Name + ": " + npc.Dialogue;
+            }
+            else
+            {
+                // No NPC in front, clear dialogue
+                game.NPCDialogue = "";
             }
         }
     }
