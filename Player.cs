@@ -14,6 +14,7 @@
         public int Y { get; set; }  // Position on the Y axis (row)
         public Direction FacingDirection { get; set; }
         public char Symbol { get; set; }
+        public ConsoleColor Color { get; set; }  // Added property
 
         public Player(int x, int y)
         {
@@ -21,6 +22,7 @@
             Y = y;
             FacingDirection = Direction.Up;  // Default direction
             Symbol = '^';  // Default symbol (facing up)
+            Color = ConsoleColor.Cyan;  // Set player color
         }
 
         public void Turn(Direction newDirection)

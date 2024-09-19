@@ -5,14 +5,14 @@
         public string Name { get; set; }
         public char Symbol { get; set; }
         public bool IsPassable { get; set; }
-        // Placeholder for additional effects
-        // public Action<Player> OnEnter { get; set; }
+        public ConsoleColor Color { get; set; }  // Added property
 
-        public Tile(string name, char symbol, bool isPassable)
+        public Tile(string name, char symbol, bool isPassable, ConsoleColor color)
         {
             Name = name;
             Symbol = symbol;
             IsPassable = isPassable;
+            Color = color;  // Assign color
         }
     }
 }

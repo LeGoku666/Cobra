@@ -26,25 +26,25 @@ namespace Cobra
         {
             colorTileMapping = new Dictionary<Rgba32, Tile>();
 
-            // Define colors
+            // Define colors from BMP
             var brown = new Rgba32(165, 42, 42);
             var green = new Rgba32(0, 255, 0);
             var white = new Rgba32(255, 255, 255);
             var gray = new Rgba32(128, 128, 128);
 
-            // Create tiles
-            defaultTile = new Tile("Floor", '°', true); // Default tile
-            var grassTile = new Tile("Grass", ',', true);
-            var startTile = new Tile("Player Start", ' ', true); // The character will be overwritten by the player
-            var wallTile = new Tile("Wall", '■', false);
+            // Create tiles with assigned console colors
+            defaultTile = new Tile("Floor", '°', true, ConsoleColor.DarkYellow); // Brown
+            var grassTile = new Tile("Grass", ',', true, ConsoleColor.Green);
+            var startTile = new Tile("Player Start", ' ', true, ConsoleColor.White); // White
+            var wallTile = new Tile("Wall", '■', false, ConsoleColor.Gray);
 
-            // Map colors to Tile objects
+            // Map BMP colors to Tile objects
             colorTileMapping[brown] = defaultTile;
             colorTileMapping[green] = grassTile;
             colorTileMapping[white] = startTile;
             colorTileMapping[gray] = wallTile;
 
-            // You can add more mappings here
+            // Add more mappings here if needed
         }
 
         private void LoadMapFromImage(string imagePath)

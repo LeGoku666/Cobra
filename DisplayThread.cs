@@ -83,12 +83,22 @@
                     for (int x = 0; x < game.Board.Width; x++)
                     {
                         if (game.Player.X == x && game.Player.Y == y)
-                            Console.Write(game.Player.Symbol + " "); // Add a space
+                        {
+                            Console.ForegroundColor = game.Player.Color;  // Use player's color
+                            Console.Write(game.Player.Symbol + " ");
+                        }
                         else
-                            Console.Write(game.Board.Grid[y, x].Symbol + " "); // Add a space
+                        {
+                            Tile tile = game.Board.Grid[y, x];
+                            Console.ForegroundColor = tile.Color;  // Set tile color
+                            Console.Write(tile.Symbol + " ");
+                        }
                     }
                     Console.WriteLine();
                 }
+
+                // Reset console color after drawing the map
+                Console.ResetColor();
 
                 Thread.Sleep(delay);
             }
